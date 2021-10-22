@@ -16,7 +16,7 @@ class HashTable:
 		
 	def __rehash(self, m):
 		# make sure m is valid
-		if m <= 2:
+		if m <= 4:
 			return
 		# set new size
 		self.max = m
@@ -54,7 +54,7 @@ class HashTable:
 		while (self.table[loc] != None and self.table[loc] != x):
 			loc = (loc + 1) % self.max
 		# need to fix linear probing - look for None or swap
-		fix = loc + 1
+		fix = (loc + 1) % self.max
 		# need to find a None to end linear probing
 		while (self.table[fix] != None):
 			# may find elements that can't be placed at loc
@@ -79,5 +79,5 @@ class HashTable:
 		while (self.table[loc] != None):
 			if self.table[loc] == x:
 				return True
-			loc = loc + 1
+			loc = (loc + 1) % self.max
 		return False

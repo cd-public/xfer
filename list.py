@@ -7,8 +7,15 @@ def make(n=100):
 	shuffle(ret)
 	return ret
 	
-def test(l):
-	return l == sorted(l)
+# for testing, timer
+import time
+def speed(f):
+	l = make(10000)
+	t0 = time.time()
+	l = f(l)
+	t1 = time.time()
+	print(str(f) + ": " + str(t1-t0))
+
 	
 # python sort: cheat to win
 def psort(l):
@@ -85,3 +92,31 @@ def qsort(l):
 	less, more = qsort(less), qsort(more)
 	return less + [pivot] + more
 	
+# swap sort, an "in place" qsort
+def ssort(l):
+	def swap(i,j):
+		if l[i] > l[j] and i < j:
+			l[i], l[j] = l[j], l[i]
+		return 
+	def help(i,j): # start index, end index, pivot. return when i-j sorted
+		if max(i+1,j) > len(l):
+			return
+		if i+1 >= j: # base case
+			swap(i,j)
+			return
+		old_i, old_j = i, j
+		pivot = l[i + (j-i)//2]
+		while i + 1 < j:
+			while l[i] < pivot: # find a big i
+				i += 1
+			while l[j] >= pivot and j > i + 1: # find a little j
+				j -= 1
+			swap(i,j)
+		help(old_i,i)
+		help(i+1, old_j)
+		return
+	help(0,len(l)-1)
+	return l
+		
+for i in [psort, isort, msort, qsort, ssort]:
+	speed(i)

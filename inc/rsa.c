@@ -27,7 +27,7 @@ uint32_t square_root(uint32_t n)
 	return root;
 }
 
-// I like to pruint32_t bools
+// I like to print bools
 char *btos(bool b)
 {
 	if (b)

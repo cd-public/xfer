@@ -3,7 +3,8 @@
 #include <stdint.h>
 #include "pmap.h"
 
-struct pmap_struct {
+struct pmap_struct 
+{
     size_t x ;
     size_t y ;
     size_t s ;
